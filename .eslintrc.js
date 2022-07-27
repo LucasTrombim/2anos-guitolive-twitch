@@ -23,5 +23,6 @@ module.exports = {
     'jsx-props-no-spreading': 0,
     'import/extensions': 0,
     'import/no-unresolved': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };

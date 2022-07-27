@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        permanentMarker: ['Permanent Marker'],
+      },
       backgroundImage: {
         moita: 'url(/images/moita.png)',
         corrida: 'url(/images/corrida.png)',

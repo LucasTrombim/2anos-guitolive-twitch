@@ -1,3 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Permanent Marker', sans-serif;
+}
+
+.flip {
+  transform: rotateY(180)
+}
+
+.memory-card {
+  width: calc(25% - 10px);
+  height: calc(33.333% - 10px);
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: absolute;
+  border-radius: 5px;
+  background: #1C7CCC;
+}
+
+.logo {
+  animation-name: scale-animation;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+.card-figure {
+  animation-name: moita-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
+.moita-number {
+  position: absolute;
+  background-image: url('/images/placa-numero.svg');
+  height: 60px;
+  width: 60px;
+  z-index: 1000;
+  left: 50px;
+  top: 135px;
+}
+
+@keyframes scale-animation {
+  from {
+    transform: scale(1);
+  }
+  
+  to {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes moita-animation {
+  0% { transform:  rotate(0deg); }
+  10% { transform: rotate(-1deg); }
+  20% { transform:  rotate(1deg); }
+  30% { transform:  rotate(0deg); }
+  40% { transform:  rotate(1deg); }
+  50% { transform:  rotate(-1deg); }
+  100% { transform:  rotate(-1deg); }
+}

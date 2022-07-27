@@ -6,6 +6,7 @@ import Head from 'next/head';
 
 import GlobalStyles from '@/styles/GlobalStyles';
 import '@/styles/tailwind.css';
+import '@/styles/styles.css';
 
 import { GlobalConfigsProvider } from '@/contexts/GlobalConfigs';
 
