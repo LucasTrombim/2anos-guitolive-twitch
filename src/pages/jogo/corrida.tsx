@@ -89,7 +89,7 @@ export default function CorridaGame() {
         <img src={numberImages[currentNumber - 1]} alt="" width={currentNumber === 1 ? 30 : 50} height={30} />
       </div>
       )}
-      <button type="button" onClick={() => onStartRace()} className="!font-short absolute text-lg text-white top-20 left-1/2 uppercase p-5 bg-[#2AACF5] hover:bg-white hover:text-[#2AACF5] transition duration-300 rounded-full">Iniciar</button>
+      <button type="button" onClick={() => onStartRace()} className="left-[11%] top-[40%] !font-short absolute text-lg text-white uppercase p-5 bg-[#2AACF5] hover:bg-white hover:text-[#2AACF5] transition duration-300 rounded-full">Iniciar</button>
     </>
   );
 }
