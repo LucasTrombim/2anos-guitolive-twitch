@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         permanentMarker: ['Permanent Marker'],
+        short: ['Short Stack'],
       },
       backgroundImage: {
         moita: 'url(/images/moita.png)',

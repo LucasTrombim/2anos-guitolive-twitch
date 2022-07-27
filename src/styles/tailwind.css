@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Permanent Marker', sans-serif;
 }
 
 .flip {
@@ -52,6 +51,13 @@ body {
   top: 135px;
 }
 
+.carAnimation {
+  animation-name: car-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+}
+
 @keyframes scale-animation {
   from {
     transform: scale(1);
@@ -59,6 +65,16 @@ body {
   
   to {
     transform: scale(1.02);
+  }
+}
+
+@keyframes car-animation {
+  from {
+    transform: translateX('40px');
+  }
+  
+  to {
+    transform: translateX('90vw');
   }
 }
 
