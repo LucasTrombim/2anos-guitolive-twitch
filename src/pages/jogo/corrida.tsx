@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react';
+import Head from 'next/head';
 import Logo from '@/components/Logo';
 
 export default function CorridaGame() {
@@ -99,6 +100,9 @@ export default function CorridaGame() {
 
   return (
     <>
+      <Head>
+        <title>Mercenário</title>
+      </Head>
       <Logo />
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-corrida" />
       <div id="car1" className="absolute flex items-end bottom-40 left-10">

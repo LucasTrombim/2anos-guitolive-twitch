@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import Logo from '@/components/Logo';
 
 export default function JogoMoitas() {
@@ -16,6 +17,9 @@ export default function JogoMoitas() {
   }
   return (
     <>
+      <Head>
+        <title>Encontre a Tidinha</title>
+      </Head>
       <Logo />
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-moita">
         <div className="fixed grid grid-cols-3 mt-12 right-[8.7rem] gap-x-16 gap-y-10 top-16">
