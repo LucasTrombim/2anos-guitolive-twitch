@@ -58,7 +58,7 @@ export default function CorridaGame() {
       }
     }
 
-    if (Math.random() * 100 >= 0) {
+    if (Math.random() * 100 >= 90) {
       const carroGanhador = car1Time < car2Time ? 1 : 2;
       setTimeout(() => {
         carroGanhador === 1 ? stopCar(1) : stopCar(2);
