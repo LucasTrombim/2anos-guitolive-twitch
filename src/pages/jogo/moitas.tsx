@@ -18,7 +18,7 @@ export default function JogoMoitas() {
     <>
       <Logo />
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-moita">
-        <div className="fixed grid grid-cols-3 mt-12 right-44 gap-x-8 gap-y-10 top-20">
+        <div className="fixed grid grid-cols-3 mt-12 right-48 gap-x-16 gap-y-10 top-28">
           {
             Array.apply(null, { length: 12 }).map((e, index) => (
               <button key={index} className="relative moita h-[176px] flex items-end" type="button" onClick={(e) => handleClick(e, index)}>

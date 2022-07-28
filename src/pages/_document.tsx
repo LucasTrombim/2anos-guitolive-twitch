@@ -45,7 +45,7 @@ export default class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Short+Stack&display=swap" rel="stylesheet" />
         </Head>
-        <body className="overflow-x-hidden">
+        <body className="overflow-hidden">
           <Main />
           <NextScript />
         </body>

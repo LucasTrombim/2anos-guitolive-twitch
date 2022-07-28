@@ -51,7 +51,7 @@ body {
   top: 135px;
 }
 
-.carAnimation {
+#car1, #car2 {
   animation-name: car-animation;
   animation-duration: 2s;
   animation-iteration-count: infinite;
@@ -86,4 +86,19 @@ body {
   40% { transform:  rotate(1deg); }
   50% { transform:  rotate(-1deg); }
   100% { transform:  rotate(-1deg); }
+}
+
+@keyframes car-animation {
+  0%  { transform:   rotate(-1deg);  }
+  10%  { transform:  rotate(0deg);  }
+  20%  { transform:  rotate(1deg);  }
+  30%  { transform:  rotate(-1deg); }
+  40%  { transform:  rotate(0deg);  }
+  50%  { transform:  rotate(-1deg); }
+  60%  { transform:  rotate(1deg);  }
+  70%  { transform:  rotate(0deg);  }
+  80%  { transform:  rotate(1deg);  }
+  90%  { transform:  rotate(-1deg); }
+  100% { transform:  rotate(0deg);  }
+  
 }
