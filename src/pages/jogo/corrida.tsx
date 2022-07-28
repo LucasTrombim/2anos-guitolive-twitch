@@ -112,11 +112,11 @@ export default function CorridaGame() {
         <img src={car2} alt="" width={258} height={235} />
       </div>
       {currentNumber !== 0 && (
-        <div className="absolute flex items-center justify-center w-40 h-40 p-5 text-lg text-white -translate-x-1/2 rounded-full bg-black/50 left-1/2 top-1/3">
+        <div className="absolute flex items-center justify-center w-40 h-40 p-5 text-lg text-white -translate-x-1/2 rounded-full bg-black/50 left-[20%] top-[36%]">
           <img src={numberImages[currentNumber - 1]} alt="" width={currentNumber === 1 ? 30 : 50} height={30} />
         </div>
       )}
-      <button type="button" onClick={() => onStartRace()} className="left-[11%] top-[40%] !font-short absolute text-lg text-white uppercase p-5 bg-[#2AACF5] hover:bg-white hover:text-[#2AACF5] transition duration-300 rounded-full">Iniciar</button>
+      <button type="button" onClick={() => onStartRace()} className="left-[3%] top-[40%] !font-short absolute text-lg text-white uppercase p-5 bg-[#2AACF5] hover:bg-white hover:text-[#2AACF5] transition duration-300 rounded-full">Iniciar</button>
     </>
   );
 }

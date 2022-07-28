@@ -34,16 +34,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/jogo/corrida.js"
-    ],
-    "/jogo/moitas": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/jogo/moitas.js"
-    ],
-    "/jogo/velha": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/jogo/velha.js"
     ]
   },
   "ampFirstPages": []
