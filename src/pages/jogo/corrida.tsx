@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react';
 import Head from 'next/head';
+import useSound from 'use-sound';
 import Logo from '@/components/Logo';
 
 export default function CorridaGame() {
@@ -15,6 +16,21 @@ export default function CorridaGame() {
   const [carW2, setCarW2] = useState(190);
   const [currentNumber, setCurrentNumber] = useState(0);
   let count = 4;
+
+  const [playContagem] = useSound(
+    '/sounds/CONTAGEM.mp3',
+    { volume: 0.10 },
+  );
+
+  const [playAcelerando, { sound }] = useSound(
+    '/sounds/ACELERANDO.mp3',
+    { volume: 0.10 },
+  );
+
+  const [playFreio] = useSound(
+    '/sounds/FREIO.mp3',
+    { volume: 0.10 },
+  );
 
   function getRaceTime() {
     const car1Time = (Math.floor(Math.random() * 5) + 5) * 1000;
@@ -30,7 +46,7 @@ export default function CorridaGame() {
     }
     const ElementCar1 = document.getElementById('car1');
     const ElementCar2 = document.getElementById('car2');
-
+    playAcelerando();
     const animation1 = ElementCar1.animate({
       transform: ['translateX(0)', 'translateX(100vw)'],
     }, {
@@ -45,10 +61,31 @@ export default function CorridaGame() {
       easing: 'ease-in',
     });
 
+    animation1.onfinish = async () => {
+      const bateu = (animation2.playState === 'finished' || animation2.playState === 'paused');
+      if (bateu) {
+        sound.fade(0.05, 0, 500); // SE 1 CARRO EXPLODIR
+      }
+      if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
+        sound.fade(0.05, 0, 500); // SE OS 2 CARROS CORREM SEM EXPLODIR
+      }
+    };
+
+    animation2.onfinish = async () => {
+      const bateu = (animation1.playState === 'finished' || animation1.playState === 'paused');
+      if (bateu) {
+        sound.fade(0.05, 0, 500); // SE 1 CARRO EXPLODIR
+      }
+      if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
+        sound.fade(0.05, 0, 500); // SE OS 2 CARROS CORREM SEM EXPLODIR
+      }
+    };
+
     animation1.play();
     animation2.play();
 
     async function stopCar(car) {
+      playFreio();
       if (car === 1) {
         await setCar1('/images/Carro Quebrado.svg');
         animation1.pause();
@@ -57,8 +94,8 @@ export default function CorridaGame() {
         animation2.pause();
       }
     }
-
-    if (Math.random() * 100 >= 90) {
+    const percentExplosionChance = 25;
+    if (Math.random() * 100 >= 100 - percentExplosionChance) {
       const carroGanhador = car1Time < car2Time ? 1 : 2;
       setTimeout(() => {
         carroGanhador === 1 ? stopCar(1) : stopCar(2);
@@ -70,6 +107,7 @@ export default function CorridaGame() {
   function changeNumberCountdown(activeCounter) {
     switch (activeCounter) {
       case 3:
+        playContagem();
         setCurrentNumber(3);
         break;
       case 2:
@@ -88,7 +126,7 @@ export default function CorridaGame() {
     if (count > 0) {
       count--;
       changeNumberCountdown(count);
-      setTimeout(countdownTimer, 700);
+      setTimeout(countdownTimer, 1000);
     } else {
       onFinishCountdown();
     }
