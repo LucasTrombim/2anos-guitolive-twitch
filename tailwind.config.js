@@ -13,7 +13,7 @@ module.exports = {
       backgroundImage: {
         moita: 'url(/images/moita.png)',
         corrida: 'url(/images/corrida.png)',
-        velha: 'url(/images/velha.png)',
+        velha: 'url(/images/Fundos_Fundo velha cópia 2 3.png)',
       },
       colors: {
         white: '#fff',
