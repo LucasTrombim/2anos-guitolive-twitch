@@ -5,15 +5,14 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import useSound from 'use-sound';
-import Logo from '@/components/Logo';
+import FireAnimation from '@/components/FireAnimation';
 
 export default function CorridaGame() {
-  const [car1, setCar1] = useState('/images/Carro Rosa.svg');
-  const [car2, setCar2] = useState('/images/Carro Roxo.svg');
-  const [carW1, setCarW1] = useState(180);
-  const [carH1, setCarH1] = useState(190);
-  const [carH2, setCarH2] = useState(190);
-  const [carW2, setCarW2] = useState(190);
+  const [car1] = useState('/images/corrida/car-1.svg');
+  const [car2] = useState('/images/corrida/car-2.svg');
+  const [raceWinner, setRaceWinner] = useState(0);
+
+  const [explodedPosition, setExplodedPosition] = useState([0, 0]);
   const [currentNumber, setCurrentNumber] = useState(0);
   let count = 4;
 
@@ -39,70 +38,80 @@ export default function CorridaGame() {
     return [car1Time, car2Time];
   }
 
+  console.log(raceWinner);
+
   function onFinishCountdown() {
     let [car1Time, car2Time] = getRaceTime();
-    if (car1Time === car2Time) {
-      [car1Time, car2Time] = getRaceTime();
-    }
+    if (car1Time === car2Time) { [car1Time, car2Time] = getRaceTime(); }
+    const percentExplosionChance = 25;
+    const willExplode = Math.random() * 100 >= 100 - percentExplosionChance;
     const ElementCar1 = document.getElementById('car1');
     const ElementCar2 = document.getElementById('car2');
-    playAcelerando();
+    const willWin = car1Time < car2Time ? 1 : 2;
+
     const animation1 = ElementCar1.animate({
-      transform: ['translateX(0)', 'translateX(100vw)'],
+      transform: ['translateX(0)', 'translateX(79vw)'],
     }, {
       duration: car1Time,
       easing: 'ease-in',
     });
-
     const animation2 = ElementCar2.animate({
-      transform: ['translateX(0)', 'translateX(100vw)'],
+      transform: ['translateX(0)', 'translateX(79vw)'],
     }, {
       duration: car2Time,
       easing: 'ease-in',
     });
 
+    async function stopCar(car) {
+      playFreio();
+      const { left, top } = document.getElementById(`car${car}`).getBoundingClientRect();
+      setExplodedPosition([
+        left + 50,
+        top - 200,
+      ]);
+      if (car === 1) {
+        // await setCar1('/images/corrida/car-exp-1.svg');
+        animation1.pause();
+      } else {
+        // await setCar2('/images/corrida/car-exp-2.svg');
+        animation2.pause();
+      }
+    }
+
     animation1.onfinish = async () => {
       const bateu = (animation2.playState === 'finished' || animation2.playState === 'paused');
       if (bateu) {
-        sound.fade(0.05, 0, 500); // SE 1 CARRO EXPLODIR
+        sound.fade(0.05, 0, 500); // SE O OUTRO CARRO EXPLODIR (CARRO 2)
+        setRaceWinner(1);
       }
+
       if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
-        sound.fade(0.05, 0, 500); // SE OS 2 CARROS CORREM SEM EXPLODIR
+        sound.fade(0.05, 0, 500); // SE NGM EXPLODIR
       }
     };
 
     animation2.onfinish = async () => {
       const bateu = (animation1.playState === 'finished' || animation1.playState === 'paused');
       if (bateu) {
-        sound.fade(0.05, 0, 500); // SE 1 CARRO EXPLODIR
+        sound.fade(0.05, 0, 500); // SE O OUTRO CARRO EXPLODIR (CARRO 1)
+        setRaceWinner(2);
       }
+
       if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
-        sound.fade(0.05, 0, 500); // SE OS 2 CARROS CORREM SEM EXPLODIR
+        sound.fade(0.05, 0, 500); // SE NGM EXPLODIR
       }
     };
 
+    playAcelerando();
     animation1.play();
     animation2.play();
 
-    async function stopCar(car) {
-      playFreio();
-      if (car === 1) {
-        await setCar1('/images/Carro Quebrado.svg');
-        animation1.pause();
-      } else {
-        await setCar2('/images/Carro Quebrado Roxo.svg');
-        animation2.pause();
-      }
-    }
-    const percentExplosionChance = 25;
-    if (Math.random() * 100 >= 100 - percentExplosionChance) {
-      const carroGanhador = car1Time < car2Time ? 1 : 2;
+    if (willExplode) {
       setTimeout(() => {
-        carroGanhador === 1 ? stopCar(1) : stopCar(2);
+        willWin === 1 ? stopCar(1) : stopCar(2);
       }, 4000);
     }
   }
-  const numberImages = ['/images/numero-1.svg', '/images/numero-2.svg', '/images/numero-3.svg'];
 
   function changeNumberCountdown(activeCounter) {
     switch (activeCounter) {
@@ -133,28 +142,71 @@ export default function CorridaGame() {
   }
 
   function onStartRace() {
+    setRaceWinner(0);
     countdownTimer();
+    document.getElementById('car1').style.transform = 'translateX(0)';
+    document.getElementById('car2').style.transform = 'translateX(0)';
+    setExplodedPosition([0, 0]);
   }
+
+  const countdownStyleByCountdown = (number) => {
+    const defaultStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+
+      borderRadius: 999,
+      border: '5px solid #232323',
+
+      fontSize: 159,
+      fontWeight: '900',
+      fontFamily: 'MADE Tommy Soft, sans-serif !important',
+      color: '#FFF',
+    };
+
+    if (number === 3) {
+      return ({
+        ...defaultStyle,
+        backgroundColor: '#FF0086',
+      });
+    }
+
+    if (number === 2) {
+      return ({
+        ...defaultStyle,
+        backgroundColor: '#FFCB00',
+      });
+    }
+
+    if (number === 1) {
+      return ({
+        ...defaultStyle,
+        backgroundColor: '#13E2BA',
+      });
+    }
+  };
 
   return (
     <>
       <Head>
         <title>Mercenário</title>
       </Head>
-      <Logo />
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-corrida" />
-      <div id="car1" className="absolute flex items-end bottom-40 left-10">
+      <FireAnimation left={explodedPosition[0]} top={explodedPosition[1]} />
+      <div id="car1" className="absolute flex items-end bottom-[280px] left-[90px]">
         <img src={car1} alt="" width={258} height={235} />
       </div>
-      <div id="car2" className="absolute bottom-0 flex items-end left-10">
+      <div id="car2" className="absolute bottom-0 flex items-end bottom-[150px] left-[90px]">
         <img src={car2} alt="" width={258} height={235} />
       </div>
       {currentNumber !== 0 && (
-        <div className="absolute flex items-center justify-center w-40 h-40 p-5 text-lg text-white -translate-x-1/2 rounded-full bg-black/50 left-[20%] top-[36%]">
-          <img src={numberImages[currentNumber - 1]} alt="" width={currentNumber === 1 ? 30 : 50} height={30} />
+        <div className="absolute w-[219px] h-[219px] -translate-x-1/2 rounded-full left-[50%] top-[61%]">
+          <span className="letter-container" style={countdownStyleByCountdown(currentNumber)}>{currentNumber}</span>
         </div>
       )}
-      <button type="button" onClick={() => onStartRace()} className="left-[3%] top-[40%] !font-short absolute text-lg text-white uppercase p-5 bg-[#2AACF5] hover:bg-white hover:text-[#2AACF5] transition duration-300 rounded-full">Iniciar</button>
+      <button type="button" onClick={() => onStartRace()} className="absolute right-[3.5%] top-[20.5%] w-[385px] h-[95px]" />
     </>
   );
 }

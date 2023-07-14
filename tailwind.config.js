@@ -11,9 +11,10 @@ module.exports = {
         short: ['Short Stack'],
       },
       backgroundImage: {
-        moita: 'url(/images/moita.png)',
-        corrida: 'url(/images/corrida.png)',
-        velha: 'url(/images/velha.png)',
+        moita: 'url(/images/procura/bg-moita.png)',
+        corrida: 'url(/images/corrida/bg-corrida.svg)',
+        velha: 'url(/images/velha/bg-velha.svg)',
+        termo: 'url(/images/termo/bg-termo.svg)',
       },
       colors: {
         white: '#fff',
@@ -39,5 +40,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

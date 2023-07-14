@@ -8,11 +8,14 @@ export default function PageHome() {
         <Link href="/jogo/velha">
           <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo da velha</button>
         </Link>
-        <Link href="/jogo/moitas">
+        <Link href="/jogo/procura">
           <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo das moitas</button>
         </Link>
         <Link href="/jogo/corrida">
           <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo da corrida</button>
+        </Link>
+        <Link href="/jogo/termo">
+          <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo do termo</button>
         </Link>
       </div>
     </div>

@@ -30,6 +30,16 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/jogo/procura": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/jogo/procura.js"
+    ],
+    "/jogo/termo": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/jogo/termo.js"
+    ],
     "/jogo/velha": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

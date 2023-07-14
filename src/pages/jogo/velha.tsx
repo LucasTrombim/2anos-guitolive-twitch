@@ -5,23 +5,23 @@ import Head from 'next/head';
 import Logo from '@/components/Logo';
 
 export default function VelhaGame() {
-  const x = '/images/X.svg';
-  const o = '/images/Bola.svg';
+  const x = '/images/velha/X.svg';
+  const o = '/images/velha/Bola.svg';
   const [character, currentCharacter] = useState(true);
   function setCharacter(e) {
     currentCharacter(!character);
     const current = character ? x : o;
     const img = document.createElement('img');
     img.src = current;
-    img.setAttribute('style', `position:absolute;left: ${e.pageX - 30}px;top:${e.pageY - 30}px`);
+    img.setAttribute('style', `position:absolute;left: ${e.pageX - 70}px;top:${e.pageY - 70}px;animation: 4s linear car-animation infinite`);
     document.querySelector('.bg-velha').appendChild(img);
   }
+
   return (
     <>
       <Head>
         <title>Jogo da velha</title>
       </Head>
-      <Logo />
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-velha" onClick={(e) => setCharacter(e)} />
     </>
   );

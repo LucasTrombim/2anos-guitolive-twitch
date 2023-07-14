@@ -11,19 +11,26 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
     "@types/jquery": "^3.5.14",
     "axios": "^0.27.2",
+    "classnames": "^2.3.2",
+    "date-fns": "^2.30.0",
     "framer-motion": "^6.4.3",
+    "grapheme-splitter": "^1.0.4",
     "jquery": "^3.6.0",
     "next": "^12.1.0",
+    "query-string": "^8.1.0",
     "react": ">= 17.0.1",
     "react-device-detect": "^2.2.2",
+    "react-div-100vh": "^0.7.0",
     "react-dom": ">= 17.0.1",
     "styled-components": ">= 5.2.1",
     "use-sound": "^4.0.1",
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/react": "^17.0.39",
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
