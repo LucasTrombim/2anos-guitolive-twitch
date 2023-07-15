@@ -25,6 +25,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/jogo/corrida": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/jogo/corrida.js"
+    ],
     "/jogo/porao": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

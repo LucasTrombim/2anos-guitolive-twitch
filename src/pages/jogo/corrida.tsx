@@ -2,7 +2,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import useSound from 'use-sound';
 import FireAnimation from '@/components/FireAnimation';
@@ -34,6 +34,24 @@ export default function CorridaGame() {
     '/sounds/FREIO.mp3',
     { volume: 0.10 },
   );
+
+  useEffect(() => {
+    const imagesPreload = [
+      '/images/corrida/car-1.svg',
+      '/images/corrida/car-2.svg',
+      '/images/corrida/car-win-1.svg',
+      '/images/corrida/car-win-2.svg',
+      '/images/corrida/car-exp-1.svg',
+      '/images/corrida/car-exp-2.svg',
+      '/images/corrida/car-1-winner-banner.svg',
+      '/images/corrida/car-2-winner-banner.svg',
+    ];
+    imagesPreload.forEach((image) => {
+      const newImage = new Image();
+      newImage.src = image;
+      window[image] = newImage;
+    });
+  }, []);
 
   function getRaceTime() {
     const car1Time = (Math.floor(Math.random() * 5) + 5) * 1000;
