@@ -29,6 +29,7 @@ export default function JogoPorao() {
       return newItems;
     });
 
+	  console.log(clickedVideo);
     clickedVideo.addEventListener('ended', () => {
       if (index === winnerIndex) {
         playWin();
@@ -76,7 +77,17 @@ export default function JogoPorao() {
                     <p className="text-white text-[31px] !font-tommy font-bold">{index + 1}</p>
                   </span>
                 </div>
-                <video id={`video-${index}`} controls={false} width={230} height={210} src={item.source} alt="" />
+                <video
+                  id={`video-${index}`}
+                  controls={false}
+                  width={230}
+                  height={210}
+                  preload="metadata"
+                  onLoadedData={(e) => {
+                    e.target.currentTime = 1.5;
+                  }}
+                  src={item.source}
+                />
               </button>
             ))}
           </div>
