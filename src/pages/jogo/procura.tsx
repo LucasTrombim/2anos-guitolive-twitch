@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import useSound from 'use-sound';
-import Logo from '@/components/Logo';
 
 function updateAnimation(e, index) {
   e.target.classList.toggle('card-figure');
@@ -16,6 +15,8 @@ export default function JogoMoitas() {
   const [currentPlayer, setCurrentPlayer] = useState(0);
   const [items, setItems] = useState([]);
 
+  console.log(winnerIndex);
+
   const [playTambor, tamborSound] = useSound(
     '/sounds/tambores.mp3',
     { volume: 0.10 },
@@ -23,12 +24,17 @@ export default function JogoMoitas() {
 
   const [playLose, loseSound] = useSound(
     '/sounds/poop.mp3',
-    { volume: 0.50 },
+    { volume: 1 },
   );
 
   const [playWin, winSound] = useSound(
     '/sounds/palmas.mp3',
-    { volume: 0.80 },
+    { volume: 0.40 },
+  );
+
+  const [playLatido, latidoSound] = useSound(
+    '/sounds/latido.mp3',
+    { volume: 0.2 },
   );
 
   async function handleClick(e, index) {
@@ -55,6 +61,7 @@ export default function JogoMoitas() {
     if (index === winnerIndex) {
       loseSound.stop();
       playWin();
+      playLatido();
       await new Promise((resolve) => setTimeout(resolve, 400));
       setWinnerModal(true);
     }
@@ -76,10 +83,6 @@ export default function JogoMoitas() {
     setItems(initialItems);
   }, []);
 
-  async function resetGame() {
-    window.location.reload();
-  }
-
   return (
     <>
       <Head>
@@ -87,23 +90,11 @@ export default function JogoMoitas() {
       </Head>
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-moita">
         <div className="mt-[244px] right-[113px] absolute">
-          {/* {winnerModal && ( */}
-          {/*  <div className="bg-black/80 right-[-48px] -top-[72px] !w-[906px] !h-[777px] rounded-b-[31px] absolute z-50 absolute w-full h-full"> */}
-          {/*    <div className="flex items-center justify-center flex-col w-full h-full"> */}
-          {/*      <p className="text-white font-bold text-2xl leading-relaxed"> */}
-          {/*        {`Parabens Jogador ${currentPlayer}`} */}
-          {/*      </p> */}
-          {/*      <p className="text-white font-bold text-xl leading-relaxed">Voce ganhou</p> */}
-
-          {/*      <button className="mt-4 text-white rounded-md font-bold text-3xl bg-green-800 px-8 z-[10000] leading-relaxed" onClick={resetGame}>Recomeçar</button> */}
-          {/*    </div> */}
-          {/*  </div> */}
-          {/* )} */}
           <div className={`grid grid-cols-3 gap-x-[57px] gap-y-[32px] ${winnerModal && 'pointer-events-none'}`}>
             {items.map((item, index) => (
-              <button key={index} className="relative moita flex items-end" type="button" onClick={(e) => handleClick(e, index)}>
-                <span className="flex items-center justify-center moita-number">
-                  {item.source === vazio && <p className="text-white text-[50px] font-bold">{index + 1}</p>}
+              <button key={index} className={`relative moita ${item.source === vazio ? 'moita-animation' : ''} flex items-end`} type="button" onClick={(e) => handleClick(e, index)}>
+                <span className="pointer-events-none flex items-center justify-center moita-number">
+                  {item.source === vazio && <p className="text-white text-[50px] !font-tommy font-bold">{index + 1}</p>}
                 </span>
                 <div className={`flex items-center justify-center absolute
                 ${item.source === perdeu
@@ -111,7 +102,7 @@ export default function JogoMoitas() {
                   : 'top-[2.7rem] left-[2rem]'}
               `}
                 >
-                  {item.source !== vazio && <img className="" src={item.source} alt="" />}
+                  {item.source !== vazio && <img className="moita-animation" src={item.source} alt="" />}
                 </div>
                 <img className="" width={230} height={210} src={vazio} alt="" />
               </button>

@@ -17,6 +17,9 @@ export default function PageHome() {
         <Link href="/jogo/termo">
           <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo do termo</button>
         </Link>
+        <Link href="/jogo/porao">
+          <button type="button" className="p-4 bg-secondary text-white text-sm rounded-lg">Jogo do porao</button>
+        </Link>
       </div>
     </div>
   );

@@ -115,9 +115,15 @@ function App() {
   return (
     <>
       <div className="absolute left-0 top-0 w-screen h-screen bg-no-repeat bg-cover bg-termo" />
-      <p className={"left-10 top-1/2 absolute bg-[#232323] rounded-lg text-white py-12 px-8 text-2xl font-bold"}>
-        Palavra sorteada: {solutionWord}
-      </p>
+
+      <div className={"left-10 top-1/2 absolute"}>
+        <p className={"bg-[#232323] rounded-lg text-white py-12 px-8 text-2xl font-bold"}>
+          Palavra sorteada: {solutionWord}
+        </p>
+
+        <button onClick={onEnter} className={"p-4 rounded-lg bg-[#232323] text-white text-lg my-2 mr-2"}>Enter</button>
+        <button onClick={onDelete} className={"p-4 rounded-lg bg-[#232323] text-white text-lg my-2 mx-2"}>Backspace</button>
+      </div>
       <Div100vh>
         <div className="absolute right-[900px] top-[215px] flex flex-col">
           <div className="mx-auto flex w-full grow flex-col px-1 pt-2 pb-8 sm:px-6 md:max-w-7xl lg:px-8 short:pb-2 short:pt-2">
@@ -140,27 +146,6 @@ function App() {
               guesses={guesses}
               isRevealing={isRevealing}
             />
-            {/*{(isGameWon || isGameLost) && !isRevealing && (*/}
-            {/*  <button className={"fixed bottom-10 -translate-x-1/2 left-1/2 text-white text-2xl"} onClick={() => {*/}
-            {/*    setGuesses([])*/}
-            {/*    setIsGameWon(false)*/}
-            {/*    setIsGameLost(false)*/}
-            {/*    setCurrentGuess('')*/}
-            {/*    setSolutionWord(getWordOfDay(Math.random()))*/}
-
-            {/*    if (isGameWon) {*/}
-            {/*      showSuccessAlert("", {*/}
-            {/*        durationMs: 0,*/}
-            {/*      })*/}
-            {/*    } else {*/}
-            {/*      showErrorAlert("", {*/}
-            {/*        durationMs: 0,*/}
-            {/*      })*/}
-            {/*    }*/}
-            {/*  }}>*/}
-            {/*    Recomeçar*/}
-            {/*  </button>*/}
-            {/*)}*/}
           </div>
         </div>
       </Div100vh>

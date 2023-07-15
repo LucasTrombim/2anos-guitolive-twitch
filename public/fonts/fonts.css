@@ -1,8 +1,5 @@
 @font-face {
 	font-family: 'MADE Tommy Soft';
-	src: url('../../public/fonts/subset-MADETommySoft-Black.woff2') format('woff2'),
-	url('../../public/fonts/subset-MADETommySoft-Black.woff') format('woff');
+	src: url('made-black.otf') format('opentype');
 	font-weight: 900;
-	font-style: normal;
-	font-display: swap;
 }

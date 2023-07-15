@@ -7,6 +7,7 @@ export default function FireAnimation({ left, top }) {
         position: 'absolute',
         left: `${left}px`,
         top: `${top}px`,
+	      zIndex: 10,
       }}
     >
       <svg

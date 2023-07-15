@@ -64,6 +64,19 @@ body {
 	animation-direction: alternate;
 }
 
+.moita-animation {
+	animation-name: car-animation;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+}
+
+.cell-animation {
+	animation-name: light-car-animation;
+	animation-duration: 6s;
+	animation-iteration-count: infinite;
+}
+
 .moita-number {
 	position: absolute;
 	/*background-image: url('/images/placa-numero.svg');*/
@@ -92,15 +105,15 @@ body {
 	}
 }
 
-@keyframes car-animation {
-	from {
-		transform: translateX('40px');
-	}
-	
-	to {
-		transform: translateX('90vw');
-	}
-}
+/*@keyframes car-animation {*/
+/*	from {*/
+/*		transform: translateX('40px');*/
+/*	}*/
+/*	*/
+/*	to {*/
+/*		transform: translateX('90vw');*/
+/*	}*/
+/*}*/
 
 @keyframes moita-animation {
 	10% {
@@ -169,7 +182,30 @@ body {
 	100% {
 		transform: rotate(0deg);
 	}
-	
+}
+
+@keyframes velha-animation {
+	20%, 40%, 60%, 80% {
+		transform: rotate(-2deg);
+	}
+	30%, 50%, 70%, 90% {
+		transform: rotate(2deg);
+	}
+	0%, 100% {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes light-car-animation {
+	20%, 40%, 60%, 80% {
+		transform: rotate(-0.5deg);
+	}
+	30%, 50%, 70%, 90% {
+		transform: rotate(0.5deg);
+	}
+	0%, 100% {
+		transform: rotate(0deg);
+	}
 }
 
 .cell-fill-animation {

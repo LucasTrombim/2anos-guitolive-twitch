@@ -27,7 +27,7 @@ export const Cell = ({
   const classes = classnames(
   'xxshort:w-11 xxshort:h-11 border-[5px] mx-[15px] my-1 short:text-2xl short:w-12 short:h-12 w-[135px] h-[100px] border-solid flex items-center justify-center text-2xl font-bold rounded-xl dark:text-white',
     {
-      'bg-[#232323]/50 border-[#232323]':
+      'bg-[#232323]/50 border-[#232323] cell-animation':
         !status,
       'border-white': value && !status,
       'absent bg-[#FF0086] text-white border-[#232323]':

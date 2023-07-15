@@ -16,7 +16,7 @@ module.exports = {
       use: 'raw-loader',
     });
     config.module.rules.push({
-      test: /\.mp4$/,
+      test: /\.(mp4|webm|ogg|swf|ogv)$/,
       use: 'file-loader?name=videos/[name].[ext]',
     });
     return config;

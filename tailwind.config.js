@@ -9,12 +9,14 @@ module.exports = {
       fontFamily: {
         permanentMarker: ['Permanent Marker'],
         short: ['Short Stack'],
+        tommy: ['MADE Tommy Soft'],
       },
       backgroundImage: {
         moita: 'url(/images/procura/bg-moita.png)',
         corrida: 'url(/images/corrida/bg-corrida.svg)',
         velha: 'url(/images/velha/bg-velha.svg)',
         termo: 'url(/images/termo/bg-termo.svg)',
+        porao: 'url(/images/porao/bg-porao.svg)',
       },
       colors: {
         white: '#fff',

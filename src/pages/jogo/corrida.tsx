@@ -8,13 +8,17 @@ import useSound from 'use-sound';
 import FireAnimation from '@/components/FireAnimation';
 
 export default function CorridaGame() {
-  const [car1] = useState('/images/corrida/car-1.svg');
-  const [car2] = useState('/images/corrida/car-2.svg');
+  const [car1, setCar1] = useState('/images/corrida/car-1.svg');
+  const [car2, setCar2] = useState('/images/corrida/car-2.svg');
   const [raceWinner, setRaceWinner] = useState(0);
-
   const [explodedPosition, setExplodedPosition] = useState([0, 0]);
   const [currentNumber, setCurrentNumber] = useState(0);
   let count = 4;
+
+  const srcWinner1 = '/images/corrida/car-win-1.svg';
+  const srcWinner2 = '/images/corrida/car-win-2.svg';
+  const srcExploded1 = '/images/corrida/car-exp-1.svg';
+  const srcExploded2 = '/images/corrida/car-exp-2.svg';
 
   const [playContagem] = useSound(
     '/sounds/CONTAGEM.mp3',
@@ -38,12 +42,10 @@ export default function CorridaGame() {
     return [car1Time, car2Time];
   }
 
-  console.log(raceWinner);
-
   function onFinishCountdown() {
     let [car1Time, car2Time] = getRaceTime();
     if (car1Time === car2Time) { [car1Time, car2Time] = getRaceTime(); }
-    const percentExplosionChance = 25;
+    const percentExplosionChance = 40; // 40% de chance de explodir
     const willExplode = Math.random() * 100 >= 100 - percentExplosionChance;
     const ElementCar1 = document.getElementById('car1');
     const ElementCar2 = document.getElementById('car2');
@@ -54,12 +56,14 @@ export default function CorridaGame() {
     }, {
       duration: car1Time,
       easing: 'ease-in',
+      fill: 'forwards',
     });
     const animation2 = ElementCar2.animate({
       transform: ['translateX(0)', 'translateX(79vw)'],
     }, {
       duration: car2Time,
       easing: 'ease-in',
+      fill: 'forwards',
     });
 
     async function stopCar(car) {
@@ -69,20 +73,33 @@ export default function CorridaGame() {
         left + 50,
         top - 200,
       ]);
+
+      if (car === 2) {
+        document.getElementById('car1').style.zIndex = '9';
+      }
+
       if (car === 1) {
-        // await setCar1('/images/corrida/car-exp-1.svg');
+        await setCar1(srcExploded1);
         animation1.pause();
       } else {
-        // await setCar2('/images/corrida/car-exp-2.svg');
+        await setCar2(srcExploded2);
         animation2.pause();
       }
     }
 
     animation1.onfinish = async () => {
+      setRaceWinner((winner) => {
+        if (winner === 0) {
+          setCar1(srcWinner1);
+          return 1;
+        }
+
+        return winner;
+      });
+
       const bateu = (animation2.playState === 'finished' || animation2.playState === 'paused');
       if (bateu) {
         sound.fade(0.05, 0, 500); // SE O OUTRO CARRO EXPLODIR (CARRO 2)
-        setRaceWinner(1);
       }
 
       if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
@@ -91,10 +108,18 @@ export default function CorridaGame() {
     };
 
     animation2.onfinish = async () => {
+      setRaceWinner((winner) => {
+        if (winner === 0) {
+          setCar2(srcWinner2);
+          return 2;
+        }
+
+        return winner;
+      });
+
       const bateu = (animation1.playState === 'finished' || animation1.playState === 'paused');
       if (bateu) {
         sound.fade(0.05, 0, 500); // SE O OUTRO CARRO EXPLODIR (CARRO 1)
-        setRaceWinner(2);
       }
 
       if (((await animation1.finished).playState === 'finished' && (await animation2.finished).playState === 'finished')) {
@@ -194,11 +219,19 @@ export default function CorridaGame() {
         <title>Mercenário</title>
       </Head>
       <div className="w-screen h-screen bg-no-repeat bg-cover bg-corrida" />
+      {raceWinner && (
+        <div className="absolute right-[3.5%] top-[13.5%]">
+          <img src={`/images/corrida/car-${raceWinner}-winner-banner.svg`} width={511} height={172} alt="" />
+        </div>
+      )}
+      <button type="button" onClick={() => onStartRace()} className="bg-[#232323] rounded-lg text-white !font-tommy font-[900] text-2xl absolute right-[40%] top-[20.5%] w-[385px] h-[95px]">
+        Iniciar
+      </button>
       <FireAnimation left={explodedPosition[0]} top={explodedPosition[1]} />
-      <div id="car1" className="absolute flex items-end bottom-[280px] left-[90px]">
+      <div id="car1" className="z-10 absolute flex items-end bottom-[280px] left-[90px]">
         <img src={car1} alt="" width={258} height={235} />
       </div>
-      <div id="car2" className="absolute bottom-0 flex items-end bottom-[150px] left-[90px]">
+      <div id="car2" className="z-10 absolute bottom-0 flex items-end bottom-[150px] left-[90px]">
         <img src={car2} alt="" width={258} height={235} />
       </div>
       {currentNumber !== 0 && (
@@ -206,7 +239,6 @@ export default function CorridaGame() {
           <span className="letter-container" style={countdownStyleByCountdown(currentNumber)}>{currentNumber}</span>
         </div>
       )}
-      <button type="button" onClick={() => onStartRace()} className="absolute right-[3.5%] top-[20.5%] w-[385px] h-[95px]" />
     </>
   );
 }
